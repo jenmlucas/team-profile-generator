@@ -6,14 +6,14 @@ test('creates intern object', () => {
     expect(intern.getName()).toBe("Jennifer");
 });
 
-test('creates intern github', () => {
+test('creates intern school', () => {
     const intern = new Intern("Jennifer", 1, "jenlucas@gmail.com", "school");
 
     expect(intern.getSchool()).toBe("school");
 });
 
 test('creates intern role', () => {
-    const intern = new Intern("Jennifer", 2, "jenlucas1@gmail.com", "jenmlucas1");
+    const intern = new Intern("Jennifer", 2, "jenlucas1@gmail.com", "school");
 
     expect(intern.getRole()).toBe("Intern");
 });
