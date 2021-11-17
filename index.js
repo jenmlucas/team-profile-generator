@@ -1,27 +1,140 @@
-// GIVEN a command-line application that accepts user input
+const inquirer = require('inquirer');
+const generateSite = require("./src/generate-site");
+const fs = require("fs");
 
-// WHEN I am prompted for my team members and their information
-// THEN an HTML file is generated that displays a nicely formatted team roster based on user input
+const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
 
-// WHEN I click on an email address in the HTML
-// THEN my default email program opens and populates the TO field of the email with the address
 
-// WHEN I click on the GitHub username
-// THEN that GitHub profile opens in a new tab
+const promptEmployee = () => {
+    return inquirer.prompt([
+        {
+            type: "confirm",
+            name: "addEmployee",
+            message: "Would you like to add an Employee to your team?",
+        }
+    ])
+        .then(answers => {
+            if (answers.addEmployee) {
+                promptRole();
+            }
+            else {
+              generateHTML();
+            } 
+        })
+};
 
-// WHEN I start the application
-// THEN I am prompted to enter the team manager’s name, employee ID, email address, and office number
+const promptRole = () => {
+    return inquirer.prompt([
+        {
+            type: "list",
+            name: "role",
+            message: "Please select which Team Member you'd like to add.",
+            choices: ["Manager", "Engineer", "Intern"]
+        }
+    ])
+        .then(answers => {
+            if (answers.role === "Manager") {
+                promptManager()
+            } else if (answers.role === "Engineer") {
+                promptEngineer()
+            } else if (answers.role === "Intern") {
+                promptIntern()
+            }
+        })
+};
 
-// WHEN I enter the team manager’s name, employee ID, email address, and office number
-// THEN I am presented with a menu with the option to add an engineer or an intern or to finish building my team
 
-// WHEN I select the engineer option
-// THEN I am prompted to enter the engineer’s name, ID, email, and GitHub username, and I am taken back to the menu
+const promptManager = () => {
+    return inquirer.prompt([
+        {
+            type: "input",
+            name: "managerName",
+            message: "What is the Manager's name? (Required)",
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "Enter Employee's Id.",
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "Enter Employee's email",
+        },
+        {
+            type: "input",
+            name: "officeNumber",
+            message: "Please enter office phone number."
+        }
+    ])
+        .then(answers => {
+            promptEmployee();
+        })
+};
 
-// WHEN I select the intern option
-// THEN I am prompted to enter the intern’s name, ID, email, and school, and I am taken back to the menu
+const promptEngineer = () => {
+    return inquirer.prompt([
+        {
+            type: "input",
+            name: "engineerName",
+            message: "What is the Engineer's name? (Required)",
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "Enter Employee's Id.",
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "Enter Employee's email",
+        },
+        {
+            type: "input",
+            name: "githubUsername",
+            message: "Please enter GitHub Username."
+        }
+    ])
+        .then(answers => {
+            promptEmployee();
+        })
+};
 
-// WHEN I decide to finish building my team
-// THEN I exit the application, and the HTML is generated
+const promptIntern = () => {
+    return inquirer.prompt([
+        {
+            type: "input",
+            name: "internName",
+            message: "What is the Itern's name? (Required)",
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "Enter Employee's Id.",
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "Enter Employee's email",
+        },
+        {
+            type: "input",
+            name: "school",
+            message: "Please enter the name of school intern attended."
+        }
+    ])
+        .then(answers => {
+            promptEmployee();
+        })
+};
 
-//jest and inquirer installed- Done!
+function writeToFile(filename, teamData) {
+    const employeeData = generateSite(teamData)
+    fs.writeFile(filename, employeeData, (err) => {
+        if (err) { console.log(err) }
+    })
+}
+
+promptEmployee();
