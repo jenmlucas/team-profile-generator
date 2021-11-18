@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 const fs = require("fs");
 
-const generateSite = require("./src/generate-site");
+const teamHtml = require("./src/generate-site");
 
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
@@ -147,7 +147,8 @@ const promptIntern = () => {
 };
 
 function writeToFile() {
-    fs.writeFileSync('./dist/index.html', generateSite(team))  
+    fs.writeFileSync('./dist/index.html', teamHtml(team))  
+        // teamHtml(team);
     }
 
 
