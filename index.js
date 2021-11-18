@@ -1,11 +1,14 @@
 const inquirer = require('inquirer');
-const generateSite = require("./src/generate-site");
 const fs = require("fs");
+
+const generateSite = require("./src/generate-site");
 
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 
+
+const team = []; 
 
 const promptEmployee = () => {
     return inquirer.prompt([
@@ -13,6 +16,7 @@ const promptEmployee = () => {
             type: "confirm",
             name: "addEmployee",
             message: "Would you like to add an Employee to your team?",
+            default: true
         }
     ])
         .then(answers => {
@@ -20,7 +24,7 @@ const promptEmployee = () => {
                 promptRole();
             }
             else {
-              generateHTML();
+              writeToFile();
             } 
         })
 };
@@ -45,7 +49,6 @@ const promptRole = () => {
         })
 };
 
-
 const promptManager = () => {
     return inquirer.prompt([
         {
@@ -55,13 +58,13 @@ const promptManager = () => {
         },
         {
             type: "input",
-            name: "id",
-            message: "Enter Employee's Id.",
+            name: "managerId",
+            message: "Enter Manager's Id.",
         },
         {
             type: "input",
-            name: "email",
-            message: "Enter Employee's email",
+            name: "managerEmail",
+            message: "Enter Manager's email",
         },
         {
             type: "input",
@@ -71,6 +74,10 @@ const promptManager = () => {
     ])
         .then(answers => {
             promptEmployee();
+            const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.officeNumber);
+            console.log(manager)
+
+            team.push(manager);
         })
 };
 
@@ -83,22 +90,27 @@ const promptEngineer = () => {
         },
         {
             type: "input",
-            name: "id",
-            message: "Enter Employee's Id.",
+            name: "engineerId",
+            message: "Enter Engineer's Id.",
         },
         {
             type: "input",
-            name: "email",
-            message: "Enter Employee's email",
+            name: "engineerEmail",
+            message: "Enter Engineer's email",
         },
         {
             type: "input",
-            name: "githubUsername",
+            name: "engineerGithub",
             message: "Please enter GitHub Username."
         }
     ])
         .then(answers => {
             promptEmployee();
+            const engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub);
+            console.log(engineer)
+
+            team.push(engineer);
+            console.log(team);
         })
 };
 
@@ -111,13 +123,13 @@ const promptIntern = () => {
         },
         {
             type: "input",
-            name: "id",
-            message: "Enter Employee's Id.",
+            name: "internId",
+            message: "Enter Intern's Id.",
         },
         {
             type: "input",
-            name: "email",
-            message: "Enter Employee's email",
+            name: "internEmail",
+            message: "Enter Intern's email",
         },
         {
             type: "input",
@@ -127,14 +139,17 @@ const promptIntern = () => {
     ])
         .then(answers => {
             promptEmployee();
+            const intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.school);
+            console.log(intern)
+
+            team.push(intern);
         })
 };
 
-function writeToFile(filename, teamData) {
-    const employeeData = generateSite(teamData)
-    fs.writeFile(filename, employeeData, (err) => {
-        if (err) { console.log(err) }
-    })
-}
+function writeToFile() {
+    fs.writeFileSync('./dist/index.html', generateSite(team))  
+    }
+
+
 
 promptEmployee();

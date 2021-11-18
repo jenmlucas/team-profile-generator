@@ -1,4 +1,5 @@
-const fs = require("fs");
+const Employee = require("../lib/Employee");
+const Engineer = require("../lib/Engineer");
 
 const generateHTML = () => {
     return (
@@ -20,30 +21,17 @@ const generateHTML = () => {
 <main> 
 
 <section> 
-
-    <h1></h1>
+  
 
 </section>
 
 
 </main>
-    
+
 </body>
 
 </html>
 `
-    )
-}
+)} ;   
 
-const html = generateHTML();
-
-fs.writeFile('./dist/index.html', html, err => {
-    if (err) {
-        reject(err);
-        return;
-    }
-    resolve({
-        ok: true,
-        message: "File Created!"
-    })
-});
+module.exports = generateHTML;
