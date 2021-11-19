@@ -19,6 +19,8 @@ This is what the application will look like on your device.
 
 [Github Link](https://github.com/jenmlucas/team-profile-generatorr)
 
+[Screencastify](https://watch.screencastify.com/v/Wq6LLW1e5uVnZn4IgkpE)
+
 ![Team Profile Generator](./images/image.png)
 
 ## License
@@ -28,7 +30,7 @@ This is what the application will look like on your device.
 Jennifer Lucas = [Github](https://github.com/jenmlucas)
 
 ## Tests
-Run "npm test" in the terminal to run jest for the tests on the constructors. 
+Run "npm run test" in the terminal to run jest for the tests on the constructors. 
 
 ## Questions
 Please checkout my [Github](https://github.com/jenmlucas) for other projects. If you have any other questions or concerns, feel free to email me at jenmlucas1@gmail.com.

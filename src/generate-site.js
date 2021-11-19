@@ -43,7 +43,7 @@ const internHtml = (intern) => {
             <div class="card">
                 <div id="cardHeaderIntern" class="card-header">
                    <h1 class="text-center">${intern.name}</h1>
-                   <h2 class="text-center">Enigneer</h2>
+                   <h2 class="text-center">Intern</h2>
                 </div>
 
                 <div class='card-body'>
