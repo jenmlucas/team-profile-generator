@@ -17,7 +17,7 @@ In order to use this application, the user should clone the repository from Gith
 ## Usage
 This is what the application will look like on your device.
 
-[Github Link](https://github.com/jenmlucas/team-profile-generatorr)
+[Github Link](https://github.com/jenmlucas/team-profile-generator)
 
 [Screencastify](https://watch.screencastify.com/v/Wq6LLW1e5uVnZn4IgkpE)
 
