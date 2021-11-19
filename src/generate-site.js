@@ -115,6 +115,10 @@ const generateHTML = (htmlEmployee) => {
 
 </main>
 
+<footer id="footer">
+<p class="text-center"> &copy; Copyright 2021, JenMLucas. All Rights Reserved </p>
+</footer>
+
 </body>
 
 </html>
